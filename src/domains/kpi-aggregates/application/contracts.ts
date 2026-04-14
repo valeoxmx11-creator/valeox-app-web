@@ -1,6 +1,10 @@
 import type { KPIAggregate } from '../domain/entities';
 
 export interface KPIAggregateRepository {
-  listByScope(scope: KPIAggregate['scope'], scopeId?: string): Promise<KPIAggregate[]>;
+  listByScope(scopeType: KPIAggregate['scopeType'], scopeId?: string): Promise<KPIAggregate[]>;
   replaceBatch(values: KPIAggregate[]): Promise<void>;
+}
+
+export interface KPIAggregateCalculator {
+  recalculateFromPublishedImpacts(params: { from?: string; to?: string }): Promise<KPIAggregate[]>;
 }

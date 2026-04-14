@@ -6,9 +6,11 @@ Each domain follows the same internal structure:
 - `infrastructure/`: adapters for persistence and external systems
 
 Current domains prepared for implementation:
+- `auth`
+- `leads`
 - `projects`
 - `project-impacts`
 - `kpi-aggregates`
-- `leads`
-- `auth`
+- `categories`
 - `posts`
+- `cta-events`

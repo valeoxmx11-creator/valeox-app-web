@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { USER_ROLES } from '@/shared/types';
 import { isAdmin } from '../access/isAdmin';
 
 export const Users: CollectionConfig = {
@@ -7,6 +8,7 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
+  timestamps: true,
   access: {
     read: isAdmin,
     create: isAdmin,
@@ -24,10 +26,12 @@ export const Users: CollectionConfig = {
       type: 'select',
       required: true,
       defaultValue: 'editor',
-      options: [
-        { label: 'Admin', value: 'admin' },
-        { label: 'Editor', value: 'editor' },
-      ],
+      options: USER_ROLES.map((value) => ({ label: value, value })),
+    },
+    {
+      name: 'isActive',
+      type: 'checkbox',
+      defaultValue: true,
     },
   ],
 };

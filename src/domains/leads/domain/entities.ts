@@ -1,10 +1,23 @@
-import type { ISODateString, UUID } from '@/shared/types';
+import type {
+  AuditedEntity,
+  LeadPriority,
+  LeadStatus,
+  SolutionType,
+  SourceType,
+  UUID,
+} from '@/shared/types';
 
-export interface Lead {
+export interface Lead extends AuditedEntity {
   id: UUID;
   companyName: string;
+  contactName: string;
   contactEmail: string;
-  source: 'web' | 'referral' | 'campaign';
-  qualificationStatus: 'new' | 'qualified' | 'disqualified';
-  createdAt: ISODateString;
+  contactPhone?: string;
+  sourceType: SourceType;
+  sourceDetail?: string;
+  priority: LeadPriority;
+  status: LeadStatus;
+  solutionType?: SolutionType;
+  qualificationScore?: number;
+  notes?: string;
 }

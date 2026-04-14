@@ -1,10 +1,16 @@
-import type { ISODateString, UUID } from '@/shared/types';
+import type { AuditedEntity, ProjectStatus, SolutionType, UUID } from '@/shared/types';
 
-export interface Project {
+export interface Project extends AuditedEntity {
   id: UUID;
   name: string;
-  sector: string;
-  status: 'draft' | 'active' | 'completed';
-  startedAt?: ISODateString;
-  completedAt?: ISODateString;
+  slug: string;
+  clientName: string;
+  summary: string;
+  status: ProjectStatus;
+  solutionType: SolutionType;
+  isPublishable: boolean;
+  leadId?: UUID;
+  ownerUserId?: UUID;
+  startedAt?: string;
+  completedAt?: string;
 }

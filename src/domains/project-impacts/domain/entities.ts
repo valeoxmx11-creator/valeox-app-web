@@ -1,10 +1,14 @@
-import type { ISODateString, UUID } from '@/shared/types';
+import type { AuditedEntity, UUID } from '@/shared/types';
 
-export interface ProjectImpact {
+export interface ProjectImpact extends AuditedEntity {
   id: UUID;
   projectId: UUID;
+  title: string;
   metricKey: string;
   baselineValue: number;
   currentValue: number;
-  measuredAt: ISODateString;
+  unit: 'percent' | 'currency' | 'hours' | 'count';
+  evidenceNote?: string;
+  isPublished: boolean;
+  measuredAt: string;
 }

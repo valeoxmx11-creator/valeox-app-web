@@ -129,6 +129,25 @@ npm run format:check
 npm run payload:types
 ```
 
+
+## Core data model (implemented)
+
+The initial production data model now includes:
+- `users`
+- `leads`
+- `projects`
+- `project-impacts`
+- `kpi-aggregates`
+- `categories`
+- `posts`
+- `cta-events`
+
+Modeling notes:
+- Leads are prepared for deduplication through unique `contactEmail`.
+- Projects and impacts are separated; project publication/completion is guarded by a hook that requires at least one published impact.
+- KPI aggregates store source impact references to support recalculation pipelines.
+- CTA events can be linked to both leads and projects while keeping page/source attribution.
+
 ## Notes
 
 - This phase intentionally focuses on architecture hardening, not feature implementation.

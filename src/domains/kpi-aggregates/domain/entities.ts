@@ -1,10 +1,13 @@
-import type { ISODateString, UUID } from '@/shared/types';
+import type { AuditedEntity, KPIScopeType, UUID } from '@/shared/types';
 
-export interface KPIAggregate {
+export interface KPIAggregate extends AuditedEntity {
   id: UUID;
-  scope: 'global' | 'project' | 'client';
+  scopeType: KPIScopeType;
   scopeId?: UUID;
-  key: string;
-  value: number;
-  aggregatedAt: ISODateString;
+  aggregateKey: string;
+  aggregateValue: number;
+  sourceImpactIds: UUID[];
+  windowStart?: string;
+  windowEnd?: string;
+  calculatedAt: string;
 }
