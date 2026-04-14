@@ -1,11 +1,14 @@
 # Domain Layer
 
-Each domain owns its business rules, entities, and use-cases.
+Each domain follows the same internal structure:
+- `domain/`: entities and value objects
+- `application/`: use-case ports/contracts
+- `infrastructure/`: adapters for persistence and external systems
 
-Planned domains:
+Current domains prepared for implementation:
 - `projects`
-- `impacts`
-- `kpis`
+- `project-impacts`
+- `kpi-aggregates`
 - `leads`
-- `blog`
 - `auth`
+- `posts`

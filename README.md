@@ -1,43 +1,89 @@
 # VALEOX — Web Application Foundation
 
-Production-ready base for the VALEOX digital platform: a scalable Next.js application with Payload CMS and PostgreSQL for content, admin operations, and future business modules.
+Production-grade base for the VALEOX platform, combining Next.js App Router, Payload CMS, and PostgreSQL in a modular architecture designed for long-term growth.
 
-## Why this stack
+## Stack and rationale
 
-- **Next.js (App Router) + TypeScript**: strong SSR/ISR foundations, typed routing, scalable architecture for public pages + authenticated product surfaces.
-- **Payload CMS**: embedded admin CMS and content modeling that fits custom business workflows better than a standalone marketing CMS.
-- **PostgreSQL**: reliable relational storage for leads, projects, KPI aggregates, auth-related entities, and audit-ready operational data.
-- **ESLint + Prettier**: enforce consistency and maintainability from day one.
+- **Next.js (App Router) + TypeScript**: unified web app runtime for public routes, authenticated surfaces, and API handlers.
+- **Payload CMS**: embedded admin + content engine that supports custom business workflows.
+- **PostgreSQL**: transactional storage for operational data, lead lifecycle, and KPI snapshots.
+- **ESLint + Prettier**: consistent and maintainable code standards.
+- **Zod env parsing**: explicit runtime configuration safety.
 
-## Architecture overview
+## Final architecture
 
 ```text
 src/
-  app/                    # Next.js App Router
-    (public)/             # Public-facing routes
-  domains/                # Core business domains and use-cases
+  app/                          # Next.js route layer (UI + API handlers)
+    (public)/                   # Public website routes
+    (auth)/                     # Future auth routes
+    (admin)/                    # Future admin UI routes
+    api/                        # Route handlers (BFF)
+
+  domains/                      # Core business domains (bounded contexts)
     projects/
-    impacts/
-    kpis/
+      domain/                   # Entities/value objects
+      application/              # Domain use-case contracts/ports
+      infrastructure/           # Domain adapters
+    project-impacts/
+    kpi-aggregates/
     leads/
-    blog/
     auth/
-  modules/                # Cross-domain modules and adapters
-    admin/
+    posts/
+
+  modules/                      # Product capabilities composing domains
+    admin-dashboard/
+      application/
+      ui/
+      infrastructure/
     cta-tracking/
-  payload/                # Payload CMS definitions and configuration
+      application/
+      ui/
+      infrastructure/
+    client-portal/              # Future module
+
+  payload/                      # CMS-specific configuration
     collections/
     globals/
     hooks/
     access/
-  shared/                 # Shared UI, config, utilities, and types
+
+  data/                         # Data access/query abstraction
+    repositories/
+    queries/
+    mappers/
+
+  integrations/                 # Third-party service clients
+    analytics/
+    oauth/
+    whatsapp/
+
+  shared/                       # Cross-cutting reusable primitives
     config/
-    lib/
-    types/
-    ui/
+    components/
     utils/
-payload.config.ts         # Payload entrypoint
+    types/
+
+payload.config.ts               # Single top-level Payload entrypoint
 ```
+
+## Responsibility boundaries
+
+- **app**: only routing, rendering, request parsing, and response composition.
+- **domains**: business rules and domain contracts.
+- **modules**: orchestration across multiple domains/use-cases.
+- **payload**: CMS schema/auth/access policies and content/admin configuration.
+- **data**: concrete persistence and read-model adapters.
+- **integrations**: external providers (analytics, OAuth, WhatsApp).
+- **shared**: framework-agnostic reusable utilities and common types.
+
+## Naming conventions
+
+- **Folders**: kebab-case (`project-impacts`, `kpi-aggregates`, `cta-tracking`).
+- **Types/interfaces/classes**: PascalCase (`ProjectRepository`, `KPIAggregate`).
+- **Functions/variables**: camelCase (`getSnapshot`, `stampUpdatedBy`).
+- **Collection/Global config files**: PascalCase file names (`Users.ts`, `SiteSettings.ts`).
+- **Do not place business logic in `app/` or `shared/`.**
 
 ## Local development
 
@@ -59,9 +105,7 @@ npm install
 cp .env.example .env.local
 ```
 
-Then set real values in `.env.local`.
-
-### 4) Start development server
+### 4) Run app
 
 ```bash
 npm run dev
@@ -71,48 +115,21 @@ npm run dev
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_APP_URL` | yes | Canonical app URL for public and internal links |
-| `DATABASE_URI` | yes | PostgreSQL connection string for app and Payload data |
-| `PAYLOAD_SECRET` | yes | Cryptographic secret used by Payload auth/session tokens |
-| `NODE_ENV` | recommended | Runtime mode (`development`, `production`, `test`) |
+| `NEXT_PUBLIC_APP_URL` | yes | Canonical application URL |
+| `DATABASE_URI` | yes | PostgreSQL connection string |
+| `PAYLOAD_SECRET` | yes | Payload secret for auth/session security |
+| `NODE_ENV` | recommended | Runtime mode |
 
-## Helpful commands
+## Useful commands
 
 ```bash
 npm run lint
 npm run typecheck
+npm run format:check
 npm run payload:types
 ```
 
-## Current foundation scope
-
-- Next.js App Router bootstrapped with TypeScript.
-- Payload CMS wired for PostgreSQL.
-- Initial secure collections (`users`, `media`) and auth-enabled admin base.
-- Layered folder structure prepared for upcoming business modules.
-- Strict linting and formatting setup.
-- Runtime environment validation through `zod`.
-
-## Planned implementation phases
-
-1. **Authentication & access control**
-   - Harden role model, session strategy, route guards.
-2. **Leads pipeline**
-   - Capture endpoints, qualification rules, CRM synchronization contracts.
-3. **Projects + impacts domain model**
-   - Structured project entities, quantified impact framework.
-4. **KPI aggregation engine**
-   - Scheduled ingestion, normalized metrics, reporting APIs.
-5. **Insights/blog**
-   - Editorial workflow, localization-ready content schemas.
-6. **Admin dashboard**
-   - Operational KPIs, lead quality views, project performance widgets.
-7. **Client portal foundations**
-   - Tenant boundaries, permissions, and secure document/results delivery.
-
 ## Notes
 
-- This repository intentionally avoids demo marketing content.
-- UI placeholder is intentionally minimal/professional and now Spanish-aligned.
-- Business logic will be implemented in future phases on top of this base.
-- If `npm install` returns `403` in a restricted environment, run the same steps locally with standard npm registry access.
+- This phase intentionally focuses on architecture hardening, not feature implementation.
+- If `npm install` returns `403` in a restricted environment, run the same commands locally with normal npm registry access.

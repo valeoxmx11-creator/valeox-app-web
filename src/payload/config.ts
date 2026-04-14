@@ -4,6 +4,7 @@ import { postgresAdapter } from '@payloadcms/db-postgres';
 import { env } from '@/shared/config/env';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
+import { SiteSettings } from './globals/SiteSettings';
 
 export default buildConfig({
   secret: env.PAYLOAD_SECRET,
@@ -11,6 +12,7 @@ export default buildConfig({
     user: Users.slug,
   },
   collections: [Users, Media],
+  globals: [SiteSettings],
   typescript: {
     outputFile: path.resolve(process.cwd(), 'payload-types.ts'),
   },
