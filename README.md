@@ -76,6 +76,14 @@ npm run dev
 | `PAYLOAD_SECRET` | yes | Cryptographic secret used by Payload auth/session tokens |
 | `NODE_ENV` | recommended | Runtime mode (`development`, `production`, `test`) |
 
+## Helpful commands
+
+```bash
+npm run lint
+npm run typecheck
+npm run payload:types
+```
+
 ## Current foundation scope
 
 - Next.js App Router bootstrapped with TypeScript.
@@ -105,5 +113,6 @@ npm run dev
 ## Notes
 
 - This repository intentionally avoids demo marketing content.
-- UI placeholder is intentionally minimal/professional.
+- UI placeholder is intentionally minimal/professional and now Spanish-aligned.
 - Business logic will be implemented in future phases on top of this base.
+- If `npm install` returns `403` in a restricted environment, run the same steps locally with standard npm registry access.

@@ -20,6 +20,7 @@ yarn-error.log*
 
 # env
 .env*
+!.env.example
 
 # types
 payload-types.ts
