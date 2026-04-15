@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { isAdmin } from '../access/isAdmin';
 import { isAdminOrEditor } from '../access/isAdminOrEditor';
+import { recalculateKPIsOnChange, recalculateKPIsOnDelete } from '../hooks/recalculateKPIsOnChange';
 
 export const ProjectImpacts: CollectionConfig = {
   slug: 'project-impacts',
@@ -11,6 +12,10 @@ export const ProjectImpacts: CollectionConfig = {
     defaultColumns: ['title', 'project', 'metricKey', 'isPublished', 'measuredAt'],
   },
   timestamps: true,
+  hooks: {
+    afterChange: [recalculateKPIsOnChange],
+    afterDelete: [recalculateKPIsOnDelete],
+  },
   access: {
     read: isAdminOrEditor,
     create: isAdminOrEditor,

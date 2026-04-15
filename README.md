@@ -131,6 +131,21 @@ npm run payload:types
 
 
 
+
+## KPI aggregation engine (implemented)
+
+- Aggregates are recalculated from **published impacts** attached to **published + publishable projects**.
+- Event-driven recalculation triggers run on `project-impacts` and `projects` changes/deletes.
+- Global KPI keys persisted in `kpi-aggregates`:
+  - `total_savings_usd`
+  - `total_hours_released`
+  - `avg_error_reduction_pct`
+  - `avg_efficiency_increase_pct`
+  - `avg_revenue_growth_pct`
+  - `projects_count`
+  - `last_recalculated_at`
+- The engine is implemented in `src/domains/kpi-aggregates/application` for reuse by homepage/results APIs later.
+
 ## Admin CMS governance (implemented)
 
 - **Admin**: full control across all collections, user management, and global settings.

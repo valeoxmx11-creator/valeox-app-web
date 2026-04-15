@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { PROJECT_STATUSES, SOLUTION_TYPES } from '@/shared/types';
 import { isAdmin } from '../access/isAdmin';
 import { isAdminOrEditor } from '../access/isAdminOrEditor';
+import { recalculateKPIsOnChange, recalculateKPIsOnDelete } from '../hooks/recalculateKPIsOnChange';
 import { ensureProjectPublishable } from '../hooks/ensureProjectPublishable';
 import { syncPublishedAt } from '../hooks/syncPublishedAt';
 
@@ -28,6 +29,8 @@ export const Projects: CollectionConfig = {
   },
   hooks: {
     beforeChange: [ensureProjectPublishable, syncPublishedAt],
+    afterChange: [recalculateKPIsOnChange],
+    afterDelete: [recalculateKPIsOnDelete],
   },
   fields: [
     { name: 'name', type: 'text', required: true },
