@@ -133,6 +133,15 @@ npm run payload:types
 
 
 
+
+## Public frontend v1 (implemented)
+
+- `/` Home with hero, dynamic KPI snapshot, featured projects, authority/method blocks, and protected CTA.
+- `/resultados` with published project listing and conversion CTA.
+- `/resultados/[slug]` with project-level impact narrative and measurable impacts.
+- `/contacto` with executive framing and diagnosis CTA.
+- Data source uses live CMS/KPI reads (`projects`, `project-impacts`, `site-settings`, `kpi-aggregates`) via query layer.
+
 ## Protected CTA + discovery lead flow (implemented foundation)
 
 - Public navigation remains open; auth is only initiated via protected CTA start endpoint.

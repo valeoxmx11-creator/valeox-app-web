@@ -37,6 +37,12 @@ export const Projects: CollectionConfig = {
     { name: 'slug', type: 'text', required: true, unique: true },
     { name: 'clientName', type: 'text', required: true },
     { name: 'summary', type: 'textarea', required: true },
+
+    { name: 'problem_statement', type: 'textarea' },
+    { name: 'diagnosis_summary', type: 'textarea' },
+    { name: 'intervention_summary', type: 'textarea' },
+    { name: 'solution_summary', type: 'textarea' },
+    { name: 'strategic_impact', type: 'textarea' },
     {
       name: 'status',
       type: 'select',
