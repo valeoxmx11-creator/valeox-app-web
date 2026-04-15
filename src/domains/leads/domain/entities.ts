@@ -1,5 +1,6 @@
 import type {
   AuditedEntity,
+  CompanySize,
   LeadPriority,
   LeadStatus,
   SolutionType,
@@ -9,15 +10,22 @@ import type {
 
 export interface Lead extends AuditedEntity {
   id: UUID;
-  companyName: string;
-  contactName: string;
-  contactEmail: string;
-  contactPhone?: string;
-  sourceType: SourceType;
-  sourceDetail?: string;
+  full_name: string;
+  email: string;
+  phone?: string;
+  company: string;
+  position: string;
+  company_size: CompanySize;
+  sector: string;
+  main_problem: string;
+  main_interest: SolutionType;
+  accepts_whatsapp: boolean;
+  accepts_marketing: boolean;
+  accepts_privacy: boolean;
+  source_page: string;
+  source_type: SourceType;
+  landing_url: string;
   priority: LeadPriority;
   status: LeadStatus;
-  solutionType?: SolutionType;
-  qualificationScore?: number;
-  notes?: string;
+  qualification_score: number;
 }

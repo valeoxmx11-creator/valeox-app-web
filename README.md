@@ -132,6 +132,16 @@ npm run payload:types
 
 
 
+
+## Protected CTA + discovery lead flow (implemented foundation)
+
+- Public navigation remains open; auth is only initiated via protected CTA start endpoint.
+- `POST /api/protected-cta/start` creates signed CTA state and returns auth entry URL.
+- `/auth/entry` provides provider entry points (`google`, `facebook`, `email`) with state preservation.
+- `/auth/discovery` runs a 2-step survey and submits to `POST /api/leads/discovery/submit`.
+- Lead records are upserted (dedupe-ready by email), scored, prioritized, and source tracking is preserved.
+- If WhatsApp consent is enabled, API returns dynamic `wa.me` redirect; otherwise user is redirected to `/gracias`.
+
 ## KPI aggregation engine (implemented)
 
 - Aggregates are recalculated from **published impacts** attached to **published + publishable projects**.
