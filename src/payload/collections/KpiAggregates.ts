@@ -1,10 +1,23 @@
 import type { CollectionConfig } from 'payload';
 import { KPI_SCOPE_TYPES } from '@/shared/types';
+import { isAdmin } from '../access/isAdmin';
+import { isAdminOrEditor } from '../access/isAdminOrEditor';
 
 export const KpiAggregates: CollectionConfig = {
   slug: 'kpi-aggregates',
-  admin: { useAsTitle: 'aggregateKey' },
+  labels: { singular: 'KPI Aggregate', plural: 'KPI Aggregates' },
+  admin: {
+    useAsTitle: 'aggregateKey',
+    group: 'Operations',
+    defaultColumns: ['aggregateKey', 'scopeType', 'aggregateValue', 'calculatedAt'],
+  },
   timestamps: true,
+  access: {
+    read: isAdminOrEditor,
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
+  },
   fields: [
     {
       name: 'scopeType',
@@ -22,6 +35,9 @@ export const KpiAggregates: CollectionConfig = {
       relationTo: 'project-impacts',
       hasMany: true,
       required: true,
+      admin: {
+        description: 'Published project impacts used to compute this aggregate snapshot.',
+      },
     },
     { name: 'windowStart', type: 'date' },
     { name: 'windowEnd', type: 'date' },

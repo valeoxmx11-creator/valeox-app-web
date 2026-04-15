@@ -1,10 +1,23 @@
 import type { CollectionConfig } from 'payload';
 import { LEAD_PRIORITIES, LEAD_STATUSES, SOLUTION_TYPES, SOURCE_TYPES } from '@/shared/types';
+import { isAdmin } from '../access/isAdmin';
+import { isAdminOrEditor } from '../access/isAdminOrEditor';
 
 export const Leads: CollectionConfig = {
   slug: 'leads',
-  admin: { useAsTitle: 'contactEmail' },
+  labels: { singular: 'Lead', plural: 'Leads' },
+  admin: {
+    useAsTitle: 'contactEmail',
+    group: 'Growth',
+    defaultColumns: ['companyName', 'contactEmail', 'status', 'priority', 'sourceType', 'updatedAt'],
+  },
   timestamps: true,
+  access: {
+    read: isAdminOrEditor,
+    create: isAdminOrEditor,
+    update: isAdminOrEditor,
+    delete: isAdmin,
+  },
   fields: [
     { name: 'companyName', type: 'text', required: true },
     { name: 'contactName', type: 'text', required: true },

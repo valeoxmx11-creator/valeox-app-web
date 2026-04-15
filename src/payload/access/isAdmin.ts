@@ -1,5 +1,3 @@
-import type { Access } from 'payload';
+import { hasRole } from './hasRole';
 
-export const isAdmin: Access = ({ req }) => {
-  return req.user?.role === 'admin';
-};
+export const isAdmin = hasRole(['admin']);

@@ -130,6 +130,14 @@ npm run payload:types
 ```
 
 
+
+## Admin CMS governance (implemented)
+
+- **Admin**: full control across all collections, user management, and global settings.
+- **Editor**: operational/content management access for leads, projects, impacts, categories, posts, media, and read access to analytics data (CTA/KPI).
+- **Draft/publish workflows** are enabled for projects and posts via Payload versions.
+- **Project publication guard** enforces at least one published measurable impact before publishing.
+
 ## Core data model (implemented)
 
 The initial production data model now includes:

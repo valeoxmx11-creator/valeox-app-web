@@ -4,9 +4,12 @@ import { isAdmin } from '../access/isAdmin';
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: { singular: 'User', plural: 'Users' },
   auth: true,
   admin: {
     useAsTitle: 'email',
+    group: 'Governance',
+    defaultColumns: ['fullName', 'email', 'role', 'isActive', 'updatedAt'],
   },
   timestamps: true,
   access: {
@@ -16,11 +19,7 @@ export const Users: CollectionConfig = {
     delete: isAdmin,
   },
   fields: [
-    {
-      name: 'fullName',
-      type: 'text',
-      required: true,
-    },
+    { name: 'fullName', type: 'text', required: true },
     {
       name: 'role',
       type: 'select',
@@ -28,10 +27,6 @@ export const Users: CollectionConfig = {
       defaultValue: 'editor',
       options: USER_ROLES.map((value) => ({ label: value, value })),
     },
-    {
-      name: 'isActive',
-      type: 'checkbox',
-      defaultValue: true,
-    },
+    { name: 'isActive', type: 'checkbox', defaultValue: true },
   ],
 };

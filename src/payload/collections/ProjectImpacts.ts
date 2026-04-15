@@ -1,9 +1,22 @@
 import type { CollectionConfig } from 'payload';
+import { isAdmin } from '../access/isAdmin';
+import { isAdminOrEditor } from '../access/isAdminOrEditor';
 
 export const ProjectImpacts: CollectionConfig = {
   slug: 'project-impacts',
-  admin: { useAsTitle: 'title' },
+  labels: { singular: 'Project Impact', plural: 'Project Impacts' },
+  admin: {
+    useAsTitle: 'title',
+    group: 'Operations',
+    defaultColumns: ['title', 'project', 'metricKey', 'isPublished', 'measuredAt'],
+  },
   timestamps: true,
+  access: {
+    read: isAdminOrEditor,
+    create: isAdminOrEditor,
+    update: isAdminOrEditor,
+    delete: isAdmin,
+  },
   fields: [
     { name: 'project', type: 'relationship', relationTo: 'projects', required: true },
     { name: 'title', type: 'text', required: true },
