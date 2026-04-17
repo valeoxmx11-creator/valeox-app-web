@@ -207,3 +207,39 @@ label {
   padding: 2rem;
   background: rgba(15, 23, 42, 0.72);
 }
+
+
+.post-card h3 {
+  margin-top: 0.4rem;
+}
+
+.reading {
+  max-width: 860px;
+}
+
+.rich-fallback {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid var(--line);
+  padding: 0.9rem;
+  border-radius: 10px;
+  overflow-x: auto;
+  color: #93c5fd;
+}
+
+@media (max-width: 920px) {
+  .topbar-inner {
+    height: auto;
+    padding: 0.8rem 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .topbar nav {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+}

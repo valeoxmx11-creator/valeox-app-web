@@ -138,3 +138,67 @@ export const getProjectBySlug = async (slug: string): Promise<PublicProjectDetai
     })),
   };
 };
+
+
+export interface PublicPostCard {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedAt?: string;
+  categories: string[];
+}
+
+export interface PublicPostDetail extends PublicPostCard {
+  content: unknown;
+}
+
+const mapPost = (doc: any): PublicPostCard => ({
+  id: String(doc.id),
+  slug: String(doc.slug),
+  title: String(doc.title),
+  excerpt: String(doc.excerpt ?? ''),
+  publishedAt: doc.publishedAt ? String(doc.publishedAt) : undefined,
+  categories: Array.isArray(doc.categories)
+    ? doc.categories.map((category: any) => (typeof category === 'string' ? category : String(category?.label ?? category?.id)))
+    : [],
+});
+
+export const getPublishedPosts = async (): Promise<PublicPostCard[]> => {
+  const payload = await getPayloadClient();
+  const posts = await payload.find({
+    collection: 'posts',
+    depth: 1,
+    limit: 24,
+    where: {
+      _status: {
+        equals: 'published',
+      },
+    },
+    sort: '-publishedAt',
+  });
+
+  return posts.docs.map(mapPost);
+};
+
+export const getPostBySlug = async (slug: string): Promise<PublicPostDetail | null> => {
+  const payload = await getPayloadClient();
+  const posts = await payload.find({
+    collection: 'posts',
+    depth: 1,
+    limit: 1,
+    where: {
+      and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
+    },
+  });
+
+  if (posts.totalDocs === 0) {
+    return null;
+  }
+
+  const post = posts.docs[0] as any;
+  return {
+    ...mapPost(post),
+    content: post.content,
+  };
+};
