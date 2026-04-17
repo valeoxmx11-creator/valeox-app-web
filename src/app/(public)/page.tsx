@@ -1,6 +1,14 @@
 import { getHomepageData } from '@/data/queries/public-site';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Ingeniería operativa y transformación empresarial',
+  description: 'VALEOX rediseña sistemas operativos para generar resultados ejecutables y medibles.',
+  path: '/',
+});
 import { KPIGrid } from '@/shared/components/public/KPIGrid';
 import { ProjectCard } from '@/shared/components/public/ProjectCard';
+import { EmptyState } from '@/shared/components/public/EmptyState';
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
 
 export default async function HomePage() {
@@ -31,11 +39,18 @@ export default async function HomePage() {
           <h2>Resultados destacados</h2>
           <a href="/resultados">Ver todos</a>
         </div>
-        <div className="project-grid">
-          {data.featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        {data.featuredProjects.length === 0 ? (
+          <EmptyState
+            title="Resultados en preparación"
+            description="Publica proyectos con impacto para habilitar esta sección."
+          />
+        ) : (
+          <div className="project-grid">
+            {data.featuredProjects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="section two-cols">

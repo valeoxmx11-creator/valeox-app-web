@@ -1,4 +1,11 @@
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Contacto',
+  description: 'Inicia un diagnóstico estructural con enfoque directivo y orientación a impacto.',
+  path: '/contacto',
+});
 
 export default function ContactoPage() {
   return (

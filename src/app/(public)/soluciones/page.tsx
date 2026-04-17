@@ -1,4 +1,11 @@
 import Link from 'next/link';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Soluciones',
+  description: 'Pilares de transformación: automatización y lean manufacturing con enfoque sistémico.',
+  path: '/soluciones',
+});
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
 
 export default function SolucionesPage() {

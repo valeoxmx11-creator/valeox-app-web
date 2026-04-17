@@ -1,4 +1,11 @@
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Método VALEOX',
+  description: 'Secuencia V-A-L-E-O-X para transformación operacional y rediseño de ejecución.',
+  path: '/metodo',
+});
 
 const steps = [
   { letter: 'V', title: 'Visión sistémica', description: 'Definimos objetivo operativo y restricciones reales de ejecución.' },

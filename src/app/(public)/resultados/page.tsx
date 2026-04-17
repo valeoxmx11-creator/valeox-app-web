@@ -1,5 +1,13 @@
 import { getPublishedProjects } from '@/data/queries/public-site';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Resultados',
+  description: 'Casos publicados con impacto operacional medible en entornos empresariales reales.',
+  path: '/resultados',
+});
 import { ProjectCard } from '@/shared/components/public/ProjectCard';
+import { EmptyState } from '@/shared/components/public/EmptyState';
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
 
 export default async function ResultadosPage() {
@@ -17,11 +25,18 @@ export default async function ResultadosPage() {
       </section>
 
       <section className="section">
-        <div className="project-grid">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        {projects.length === 0 ? (
+          <EmptyState
+            title="Sin resultados publicados"
+            description="No hay casos públicos activos en este momento."
+          />
+        ) : (
+          <div className="project-grid">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="section cta-band">

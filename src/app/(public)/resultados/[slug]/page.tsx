@@ -1,6 +1,27 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProjectBySlug } from '@/data/queries/public-site';
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) {
+    return buildMetadata({
+      title: 'Proyecto no encontrado',
+      description: 'El resultado solicitado no está disponible.',
+      path: `/resultados/${slug}`,
+    });
+  }
+
+  return buildMetadata({
+    title: `${project.name} · Resultado`,
+    description: project.summary,
+    path: `/resultados/${slug}`,
+  });
+}
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

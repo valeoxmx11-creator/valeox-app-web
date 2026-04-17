@@ -1,5 +1,13 @@
 import { getPublishedPosts } from '@/data/queries/public-site';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Insights',
+  description: 'Contenido ejecutivo sobre transformación operacional y rediseño de sistemas.',
+  path: '/insights',
+});
 import { PostCard } from '@/shared/components/public/PostCard';
+import { EmptyState } from '@/shared/components/public/EmptyState';
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
 
 export default async function InsightsPage() {
@@ -15,7 +23,7 @@ export default async function InsightsPage() {
 
       <section className="section">
         {posts.length === 0 ? (
-          <p className="muted">Aún no hay insights publicados.</p>
+          <EmptyState title="Insights en preparación" description="Aún no hay contenido publicado para esta sección." />
         ) : (
           <div className="project-grid">
             {posts.map((post) => (

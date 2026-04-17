@@ -1,4 +1,11 @@
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Lean Manufacturing',
+  description: 'Metodologías Lean para mejorar flujo, calidad y rendimiento de planta.',
+  path: '/soluciones/lean-manufacturing',
+});
 
 export default function LeanManufacturingPage() {
   return (

@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { PublicFooter } from './PublicFooter';
+import { PublicNav } from './PublicNav';
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   return (
@@ -6,17 +8,11 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
       <header className="topbar">
         <div className="topbar-inner">
           <Link href="/" className="brand">VALEOX</Link>
-          <nav>
-            <Link href="/firma">Firma</Link>
-            <Link href="/metodo">Método</Link>
-            <Link href="/soluciones">Soluciones</Link>
-            <Link href="/resultados">Resultados</Link>
-            <Link href="/insights">Insights</Link>
-            <Link href="/contacto">Contacto</Link>
-          </nav>
+          <PublicNav />
         </div>
       </header>
       {children}
+      <PublicFooter />
     </>
   );
 }

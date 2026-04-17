@@ -1,4 +1,11 @@
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Automatización',
+  description: 'Ruta de madurez de automatización para operaciones con control y escalabilidad.',
+  path: '/soluciones/automatizacion',
+});
 
 const levels = [
   { name: 'Básico', description: 'Estandarización de captura y trazabilidad operativa.' },

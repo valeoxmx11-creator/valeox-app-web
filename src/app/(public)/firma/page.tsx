@@ -1,4 +1,11 @@
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export const metadata = buildMetadata({
+  title: 'Firma',
+  description: 'Posicionamiento institucional de VALEOX y principios de intervención estructural.',
+  path: '/firma',
+});
 
 export default function FirmaPage() {
   return (

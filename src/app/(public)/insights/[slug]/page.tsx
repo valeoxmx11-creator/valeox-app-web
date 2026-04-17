@@ -1,7 +1,28 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@/data/queries/public-site';
 import { RichTextFallback } from '@/shared/components/public/RichTextFallback';
 import { ProtectedCTAButton } from '@/shared/components/public/ProtectedCTAButton';
+import { buildMetadata } from '@/shared/lib/seo';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return buildMetadata({
+      title: 'Insight no encontrado',
+      description: 'El insight solicitado no está disponible.',
+      path: `/insights/${slug}`,
+    });
+  }
+
+  return buildMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/insights/${slug}`,
+  });
+}
 
 export default async function InsightDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
