@@ -1,0 +1,39 @@
+{
+  "name": "valeox-app-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "payload": "payload",
+    "payload:types": "payload generate:types --config payload.config.ts",
+    "validate:local": "npm run payload:types && npm run typecheck && npm run lint && npm run build"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.0.0",
+    "@payloadcms/next": "^3.83.0",
+    "next": "^16.2.4",
+    "payload": "^3.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.11.30",
+    "@types/react": "18.2.73",
+    "@types/react-dom": "18.2.23",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.0.0",
+    "prettier": "^3.4.2",
+    "typescript": "5.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
